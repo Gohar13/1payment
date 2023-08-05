@@ -1,0 +1,28 @@
+{% form_theme interval_form 'bootstrap_5_layout.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Interval form{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row h-100">
+            <div class="col-sm-6 my-auto">
+                    {{ form(interval_form, {'action': path('find_range'), 'method': 'POST'}) }}
+            </div>
+        </div>
+
+        {% if recordsNotFound  %}
+            <div class="alert alert-danger col-sm-6 my-auto" role="alert">
+                Record not found by given value!
+            </div>
+        {% elseif records %}
+
+            <h3>Here are found records!</h3>
+            <ul class="list-group list-group-flush col-sm-6 my-auto">
+                {% for key, value in records %}
+                    <li class="list-group-item">ID:{{ value.id }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}
